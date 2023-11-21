@@ -3,7 +3,6 @@ import math
 import os
 import sys
 from pathlib import Path
-import tensorflow_hub as hub
 from nltk.tokenize import sent_tokenize
 
 grandparent_path = Path(__file__).parents[1]
@@ -21,7 +20,6 @@ mymodule_dir = os.path.join(grandparent_path, 'utils')
 sys.path.append( mymodule_dir )
 
 from reader import DataReader
-# embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
 
 def tokenize_sentences(text):
     paragraphs = [p for p in text.split('\n') if p]
