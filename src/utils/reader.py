@@ -14,14 +14,14 @@ class DataReader:
             file_content = ""
             file = os.path.join(self.path, filename)
             #extract id from file name
-            
+            file_id = re.sub(r'[0-9]+', '', filename)
             if os.path.isfile(file):
                 f = open(file, "r")
                 for line in f:
                     file_content += line
                 f.close()
                 # change to all_file.append([file_content, extracted_id])
-                all_file.append(file_content)
+                all_file.append([file_content, file_id])
 
         return all_file
 
