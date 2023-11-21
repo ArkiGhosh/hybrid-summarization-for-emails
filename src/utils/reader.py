@@ -1,4 +1,5 @@
 import os
+import re
 
 class DataReader:
 
@@ -6,17 +7,20 @@ class DataReader:
         self.path = object
 
     def read_file(self):
-        all_file = []
+        #first should be content and second should id extracted from file name, in the 2D list
+        all_file = [[]]
 
         for filename in os.listdir(self.path):
             file_content = ""
             file = os.path.join(self.path, filename)
+            #extract id from file name
             
             if os.path.isfile(file):
                 f = open(file, "r")
                 for line in f:
                     file_content += line
                 f.close()
+                # change to all_file.append([file_content, extracted_id])
                 all_file.append(file_content)
 
         return all_file
