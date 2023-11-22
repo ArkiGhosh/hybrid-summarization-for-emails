@@ -27,7 +27,7 @@ class TextRank:
                 similarity_matrix[i][j] = 1 - spatial.distance.cosine(row_embedding,column_embedding)
 
         nx_graph = nx.from_numpy_array(similarity_matrix)
-        scores = nx.pagerank(nx_graph)
+        scores = nx.pagerank(nx_graph, tol = 1.0e-3)
         top_sentence = {sentence : scores[index] for index,sentence in enumerate(self.sentences)}
         top = dict(sorted(top_sentence.items(), key = lambda x : x[1], reverse = True)[ : min(3, len(self.sentences))])
 

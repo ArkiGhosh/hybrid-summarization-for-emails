@@ -7,11 +7,9 @@ class BardAPI:
 
     def summarize(self, prompt):
         template = f"""
-        Summarize the email by highlighting most important information 
+        Summarize the email by highlighting most important information. Do not use any information outside the email to generate the summary. Do not add any filler content like "Sure, here is the summary".
 
-        {prompt}
-
-        Summary:
+        Here is the email: {prompt}
         """
         response = self.bard.get_answer(template)
         bard_response = response['content']

@@ -8,13 +8,16 @@ class DataReader:
 
     def read_file(self):
         #first should be content and second should id extracted from file name, in the 2D list
-        all_file = [[]]
+        all_file = []
+        pattern = re.compile(r'[0-9]+')
 
         for filename in os.listdir(self.path):
             file_content = ""
             file = os.path.join(self.path, filename)
             #extract id from file name
-            file_id = re.sub(r'[0-9]+', '', filename)
+            
+            file_id = pattern.findall(filename)[0]
+
             if os.path.isfile(file):
                 f = open(file, "r")
                 for line in f:
