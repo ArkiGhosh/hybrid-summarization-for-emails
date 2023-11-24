@@ -8,9 +8,9 @@ from extractive import TextRank
 grandparent_path = Path(__file__).parents[1]
 data_path = Path(__file__).parents[2]
 
-preprocessed_train_path = os.path.join(data_path, 'data', 'preprocessed', 'train')
-preprocessed_test_path = os.path.join(data_path, 'data', 'preprocessed', 'test')
-preprocessed_dev_path = os.path.join(data_path, 'data', 'preprocessed', 'dev')
+preprocessed_train_path = os.path.join(data_path, 'data', 'preprocessed - Copy', 'train')
+preprocessed_test_path = os.path.join(data_path, 'data', 'preprocessed - Copy', 'test')
+preprocessed_dev_path = os.path.join(data_path, 'data', 'preprocessed - Copy', 'dev')
 
 target_summary_train_path = os.path.join(data_path, 'data', 'target_summary', 'train')
 target_summary_test_path = os.path.join(data_path, 'data', 'target_summary', 'test')
@@ -34,9 +34,18 @@ def generate_target_summary(preprocessed_path, target_summary_path, token):
             bard_object = BardAPI(token)
             t5_object = FlanT5()
 
-            bard_response = bard_object.summarize(emails[i][0])
             t5_response = t5_object.summarize(emails[i][0])
-            full_response = bard_response + t5_response
+            full_response = t5_response
+
+            try:
+                bard_response = bard_object.summarize(emails[i][0])
+                bard_list = bard_response.split(" ")
+                if not(bard_list[0] == "Response" or bard_list[1] == "Error:"):
+                    full_response += bard_response
+
+            except Exception as e:
+                f1.write(f"Error in file number: {emails[i][1]} with error {e}\n")
+            
             extractive_text_object = TextRank(full_response)
             summary = extractive_text_object.generate_summary()
 
@@ -53,8 +62,8 @@ def generate_target_summary(preprocessed_path, target_summary_path, token):
     f1.close()
 
 
-generate_target_summary(preprocessed_train_path, target_summary_train_path, "dQhkQc_KZlZgutYX69f2F5Z6NN0PeYER-sy7boNpd3Q-kGytWAqOQp5Q-P0sWsBMM4XSNw.")
-generate_target_summary(preprocessed_test_path, target_summary_test_path, "dQhkQc_KZlZgutYX69f2F5Z6NN0PeYER-sy7boNpd3Q-kGytWAqOQp5Q-P0sWsBMM4XSNw.")
-generate_target_summary(preprocessed_dev_path, target_summary_dev_path, "dQhkQc_KZlZgutYX69f2F5Z6NN0PeYER-sy7boNpd3Q-kGytWAqOQp5Q-P0sWsBMM4XSNw.")
+# generate_target_summary(preprocessed_train_path, target_summary_train_path, "dQi2TbJCLQlk1MV2CJjfzVKmNSfFou1jIm8Q0QThgXJQ_RcUGkI88yESpEUdxYaSvo1tnQ.")
+generate_target_summary(preprocessed_test_path, target_summary_test_path, "dQi2TbJCLQlk1MV2CJjfzVKmNSfFou1jIm8Q0QThgXJQ_RcUGkI88yESpEUdxYaSvo1tnQ.")
+# generate_target_summary(preprocessed_dev_path, target_summary_dev_path, "dQi2TbJCLQlk1MV2CJjfzVKmNSfFou1jIm8Q0QThgXJQ_RcUGkI88yESpEUdxYaSvo1tnQ.")
 
 
