@@ -62,8 +62,4 @@ def generate_target_summary(preprocessed_path, target_summary_path, token):
     f1.close()
 
 
-# generate_target_summary(preprocessed_train_path, target_summary_train_path, "dQi2TbJCLQlk1MV2CJjfzVKmNSfFou1jIm8Q0QThgXJQ_RcUGkI88yESpEUdxYaSvo1tnQ.")
-generate_target_summary(preprocessed_test_path, target_summary_test_path, "dQi2TbJCLQlk1MV2CJjfzVKmNSfFou1jIm8Q0QThgXJQ_RcUGkI88yESpEUdxYaSvo1tnQ.")
-# generate_target_summary(preprocessed_dev_path, target_summary_dev_path, "dQi2TbJCLQlk1MV2CJjfzVKmNSfFou1jIm8Q0QThgXJQ_RcUGkI88yESpEUdxYaSvo1tnQ.")
-
 
